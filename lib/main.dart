@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Provider(
+    return ChangeNotifierProvider(
       create: (context) => Infos(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -74,8 +74,8 @@ class Top extends StatelessWidget {
               ),
               onPressed: () {
                 print("change value now");
-                infos.title = 'my new title';
-                infos.description = 'my new description';
+                infos.setTitle("new title");
+                infos.setDescription('new description');
               },
             ),
             RaisedButton(
@@ -99,13 +99,14 @@ class Top extends StatelessWidget {
 class Bottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var infos = Provider.of<Infos>(context);
     return Container(
       child: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text("text Title"),
-            Text("text description"),
+            Text(infos.title),
+            Text(infos.description),
           ],
         ),
       ),
